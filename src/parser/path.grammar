@@ -1,0 +1,22 @@
+%package "parser";
+%class "Parser";
+%import "ast.*";
+
+%terminals            INT_LIT;
+%terminals            PLUS, MINUS, TIMES, DIVIDE, MOD;
+
+%typeof INT_LIT = "Integer";
+%typeof Exp = "Exp";
+
+%goal Exp;
+
+%left MOD, TIMES, DIVIDE;
+%left PLUS, MINUS;
+
+Exp     = Exp.e1 PLUS Exp.e2       {: return new Exp(e1.val + e2.val); :}
+        | Exp.e1 MINUS Exp.e2      {: return new Exp(e1.val - e2.val); :}
+        | Exp.e1 TIMES Exp.e2      {: return new Exp(e1.val * e2.val); :}
+        | Exp.e1 DIVIDE Exp.e2     {: return new Exp(e1.val / e2.val); :}
+        | Exp.e1 MOD Exp.e2        {: return new Exp(e1.val % e2.val); :}
+        | INT_LIT.i                {: return new Exp(i); :}
+;

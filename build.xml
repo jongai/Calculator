@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project name="Calculator" default="build" basedir="./">
+	<target name="beavertask" unless="beaver.available" description="creates Beaver Ant task">
+		<taskdef name="beaver" classname="beaver.comp.run.AntTask" classpath="beaver.jar" />
+		<property name="beaver.available" value="yes" />
+	</target>
+	<target name="jflextask" unless="jflex.available" description="creates JFlex Ant task">
+		<taskdef name="jflex" classname="jflex.anttask.JFlexTask" classpath="jflex.jar" />
+		<property name="jflex.available" value="yes" />
+	</target>
+	<target name="parser" depends="beavertask, jflextask" description="generates parser">
+		<beaver file="src/parser/path.grammar" sortTerminals="yes" exportTables="yes" exportTerminals="yes" />
+		<jflex file="src/parser/path.flex" nobak="yes" />
+	</target>
+	<target name="build" depends="parser" description="builds parser">
+		<javac destdir="bin" srcdir="src" classpath="beaver.jar" includeantruntime="false">
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+</project>
