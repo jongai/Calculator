@@ -8,6 +8,7 @@ import beaver.Scanner;
 import parser.Lexer;
 import parser.Parser;
 import ast.*;
+import visitor.Visitor;
 
 public class Calculator
 {
@@ -15,7 +16,8 @@ public class Calculator
     {
         Scanner lexer = new Lexer(new StringReader("(1 + 2) * 3 + 2"));
         Parser parser = new Parser();
+        Visitor visitor = new Visitor();
         Exp result = (Exp) parser.parse(lexer);
-        System.out.println(result.val);
+        System.out.println(result.accept(visitor));
     }
 }

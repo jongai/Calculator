@@ -25,7 +25,7 @@ public class Parser extends beaver.Parser {
 					final Exp e1 = (Exp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final Exp e2 = (Exp) _symbol_e2.value;
-					 return new Exp(e1.val + e2.val);
+					 return new Plus(e1, e2);
 				}
 			},
 			new Action() {	// [2] Exp = Exp.e1 MINUS Exp.e2
@@ -34,7 +34,7 @@ public class Parser extends beaver.Parser {
 					final Exp e1 = (Exp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final Exp e2 = (Exp) _symbol_e2.value;
-					 return new Exp(e1.val - e2.val);
+					 return new Minus(e1, e2);
 				}
 			},
 			new Action() {	// [3] Exp = Exp.e1 TIMES Exp.e2
@@ -43,7 +43,7 @@ public class Parser extends beaver.Parser {
 					final Exp e1 = (Exp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final Exp e2 = (Exp) _symbol_e2.value;
-					 return new Exp(e1.val * e2.val);
+					 return new Times(e1, e2);
 				}
 			},
 			new Action() {	// [4] Exp = Exp.e1 DIVIDE Exp.e2
@@ -52,7 +52,7 @@ public class Parser extends beaver.Parser {
 					final Exp e1 = (Exp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final Exp e2 = (Exp) _symbol_e2.value;
-					 return new Exp(e1.val / e2.val);
+					 return new Divide(e1, e2);
 				}
 			},
 			new Action() {	// [5] Exp = Exp.e1 MOD Exp.e2
@@ -61,14 +61,14 @@ public class Parser extends beaver.Parser {
 					final Exp e1 = (Exp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final Exp e2 = (Exp) _symbol_e2.value;
-					 return new Exp(e1.val % e2.val);
+					 return new Mod(e1, e2);
 				}
 			},
 			new Action() {	// [6] Exp = INT_LIT.i
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final Integer i = (Integer) _symbol_i.value;
-					 return new Exp(i);
+					 return new IntLit(i);
 				}
 			},
 			new Action() {	// [7] Exp = LPAREN Exp.e RPAREN

@@ -13,16 +13,18 @@ import beaver.Scanner;
 import parser.Lexer;
 import parser.Parser;
 import ast.Exp;
+import visitor.Visitor;
 
 class CalculatorTest {
     Parser parser = new Parser();
+    Visitor visitor = new Visitor();
 
     @Test
     @DisplayName("Addition")
     void add() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 + 3"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(5, result.val);
+        assertEquals(5, result.accept(visitor));
     }
 
     @Test
@@ -30,7 +32,7 @@ class CalculatorTest {
     void sub() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 - 3"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(-1, result.val);
+        assertEquals(-1, result.accept(visitor));
     }
 
     @Test
@@ -38,7 +40,7 @@ class CalculatorTest {
     void mul() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * 3"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(6, result.val);
+        assertEquals(6, result.accept(visitor));
     }
 
     @Test
@@ -46,7 +48,7 @@ class CalculatorTest {
     void mulByZero() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * 0"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(0, result.val);
+        assertEquals(0, result.accept(visitor));
     }
 
     @Test
@@ -54,7 +56,7 @@ class CalculatorTest {
     void div() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("10 / 3"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(3, result.val);
+        assertEquals(3, result.accept(visitor));
     }
 
     @Test
@@ -62,7 +64,7 @@ class CalculatorTest {
     void prec() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * 3 - 1 * 5 + 5 / 2 + 5 % 2"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(4, result.val);
+        assertEquals(4, result.accept(visitor));
     }
 
     @Test
@@ -70,7 +72,7 @@ class CalculatorTest {
     void paren1() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * (3 - 1) * 5"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(20, result.val);
+        assertEquals(20, result.accept(visitor));
     }
 
     @Test
@@ -78,6 +80,6 @@ class CalculatorTest {
     void paren2() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("(2 + 3 * ((3 - 1) + 5)) * 4"));
         Exp result = (Exp) parser.parse(lexer);
-        assertEquals(92, result.val);
+        assertEquals(92, result.accept(visitor));
     }
 }
