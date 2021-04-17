@@ -41,6 +41,8 @@ Integer        = 0 | [1-9][0-9]*
     "*"                  { return newToken(Terminals.TIMES); }
     "/"                  { return newToken(Terminals.DIVIDE); }
     "%"                  { return newToken(Terminals.MOD); }
+    "("                  { return newToken(Terminals.LPAREN); }
+    ")"                  { return newToken(Terminals.RPAREN); }
     {WhiteSpace}+        { /* ignore */ }
 }
 

@@ -13,7 +13,7 @@ public class Calculator
 {
     public static void main(String[] args) throws IOException, Exception
     {
-        Scanner lexer = new Lexer(new StringReader("1 + 1 + 3"));
+        Scanner lexer = new Lexer(new StringReader("(1 + 2) * 3 + 2"));
         Parser parser = new Parser();
         Exp result = (Exp) parser.parse(lexer);
         System.out.println(result.val);

@@ -10,8 +10,8 @@
 		<property name="jflex.available" value="yes" />
 	</target>
 	<target name="parser" depends="beavertask, jflextask" description="generates parser">
-		<beaver file="src/parser/path.grammar" sortTerminals="yes" exportTables="yes" exportTerminals="yes" />
-		<jflex file="src/parser/path.flex" nobak="yes" />
+		<beaver file="src/parser/calculator.grammar" sortTerminals="yes" exportTables="yes" exportTerminals="yes" />
+		<jflex file="src/parser/calculator.flex" nobak="yes" />
 	</target>
 	<target name="build" depends="parser" description="builds parser">
 		<javac destdir="bin" srcdir="src" classpath="beaver.jar" includeantruntime="false">
