@@ -10,14 +10,21 @@ import parser.Parser;
 import ast.*;
 import visitor.Visitor;
 
-public class Calculator
-{
-    public static void main(String[] args) throws IOException, Exception
-    {
-        Scanner lexer = new Lexer(new StringReader("a = 1; b = 2; a = a + 1; a;"));
+public class Calculator {
+    public static void main(String[] args) throws IOException, Exception {
         Parser parser = new Parser();
         Visitor visitor = new Visitor();
-        Program result = (Program) parser.parse(lexer);
-        System.out.println(visitor.visit(result));
+        var scanner = new java.util.Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("quit;") || input.equals(""))
+                break;
+            Scanner lexer = new Lexer(new StringReader(input));
+            Program result = (Program) parser.parse(lexer);
+            for (Integer i : visitor.visit(result))
+                System.out.println("> " + i);
+        }
+        scanner.close();
+        System.out.println("Successful");
     }
 }

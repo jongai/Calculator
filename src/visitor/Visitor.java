@@ -36,6 +36,10 @@ public class Visitor {
     public Integer visit(Mod e) {
         return e.left.accept(this) % e.right.accept(this);
     }
+    
+    public Integer visit(Expn e) {
+        return (int) Math.pow(e.left.accept(this), e.right.accept(this));
+    }
 
     public Integer visit(IntLit e) {
         return e.accept(this);

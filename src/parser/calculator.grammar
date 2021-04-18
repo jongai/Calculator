@@ -3,7 +3,7 @@
 %import "ast.*";
 
 %terminals            INT_LIT;
-%terminals            PLUS, MINUS, TIMES, DIVIDE, MOD;
+%terminals            PLUS, MINUS, TIMES, DIVIDE, MOD, EXP;
 %terminals            LPAREN, RPAREN, SEMI, EQUALS;
 %terminals            ID;
 
@@ -15,6 +15,7 @@
 
 %goal Program;
 
+%right EXP;
 %left MOD, TIMES, DIVIDE;
 %left PLUS, MINUS;
 
@@ -23,6 +24,7 @@ Exp     = Exp.e1 PLUS Exp.e2       {: return new Plus(e1, e2); :}
         | Exp.e1 TIMES Exp.e2      {: return new Times(e1, e2); :}
         | Exp.e1 DIVIDE Exp.e2     {: return new Divide(e1, e2); :}
         | Exp.e1 MOD Exp.e2        {: return new Mod(e1, e2); :}
+        | Exp.e1 EXP Exp.e2        {: return new Expn(e1, e2); :}
         | INT_LIT.i                {: return new IntLit(i); :}
         | LPAREN Exp.e RPAREN      {: return e; :}
         | ID.i                     {: return new Identifier(i); :}

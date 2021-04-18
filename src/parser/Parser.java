@@ -64,28 +64,37 @@ public class Parser extends beaver.Parser {
 					 return new Mod(e1, e2);
 				}
 			},
-			new Action() {	// [6] Exp = INT_LIT.i
+			new Action() {	// [6] Exp = Exp.e1 EXP Exp.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final Exp e1 = (Exp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final Exp e2 = (Exp) _symbol_e2.value;
+					 return new Expn(e1, e2);
+				}
+			},
+			new Action() {	// [7] Exp = INT_LIT.i
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final Integer i = (Integer) _symbol_i.value;
 					 return new IntLit(i);
 				}
 			},
-			new Action() {	// [7] Exp = LPAREN Exp.e RPAREN
+			new Action() {	// [8] Exp = LPAREN Exp.e RPAREN
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final Exp e = (Exp) _symbol_e.value;
 					 return e;
 				}
 			},
-			new Action() {	// [8] Exp = ID.i
+			new Action() {	// [9] Exp = ID.i
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final String i = (String) _symbol_i.value;
 					 return new Identifier(i);
 				}
 			},
-			new Action() {	// [9] Assign = ID.i EQUALS Exp.e
+			new Action() {	// [10] Assign = ID.i EQUALS Exp.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final String i = (String) _symbol_i.value;
@@ -94,7 +103,7 @@ public class Parser extends beaver.Parser {
 					 return new Assign(i, e);
 				}
 			},
-			new Action() {	// [10] Program = Program.p Exp.e SEMI
+			new Action() {	// [11] Program = Program.p Exp.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -103,7 +112,7 @@ public class Parser extends beaver.Parser {
 					 p.add(e); return p;
 				}
 			},
-			new Action() {	// [11] Program = Program.p Assign.a SEMI
+			new Action() {	// [12] Program = Program.p Assign.a SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -112,7 +121,7 @@ public class Parser extends beaver.Parser {
 					 p.add(a); return p;
 				}
 			},
-			new Action() {	// [12] Program = 
+			new Action() {	// [13] Program = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new Program();
 				}
