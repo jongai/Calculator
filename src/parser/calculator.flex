@@ -32,6 +32,7 @@ Comments = ("/*"([^*]|('*'+ [^*/]))*\*+"/") | ("//"[^\r\n]*)
 WhiteSpace     = {LineTerminator} | {Comments} | [ \t\f]
 
 Integer        = 0 | [1-9][0-9]*
+ID             = [a-zA-Z_] [a-zA-Z_0-9]*
 
 %%
 <YYINITIAL> {
@@ -43,6 +44,10 @@ Integer        = 0 | [1-9][0-9]*
     "%"                  { return newToken(Terminals.MOD); }
     "("                  { return newToken(Terminals.LPAREN); }
     ")"                  { return newToken(Terminals.RPAREN); }
+    "="                  { return newToken(Terminals.EQUALS); }
+    ";"                  { return newToken(Terminals.SEMI); }
+    "def"                { return newToken(Terminals.DEF); }
+    {ID}                 { return newToken(Terminals.ID, yytext()); }
     {WhiteSpace}+        { /* ignore */ }
 }
 

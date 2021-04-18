@@ -9,12 +9,12 @@ public class IntLit extends Exp {
     }
 
     @Override
-    public Integer getValue() {
-        return val;
-    }
-    
-    @Override
     public Integer accept(Visitor visitor) {
         return val;
+    }
+
+    @Override
+    public boolean hasID(String a) {
+        return false;
     }
 }

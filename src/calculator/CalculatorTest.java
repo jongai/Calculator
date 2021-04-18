@@ -12,8 +12,8 @@ import beaver.Parser.Exception;
 import beaver.Scanner;
 import parser.Lexer;
 import parser.Parser;
-import ast.Exp;
-import visitor.Visitor;
+import ast.*;
+import visitor.*;
 
 class CalculatorTest {
     Parser parser = new Parser();
@@ -22,64 +22,121 @@ class CalculatorTest {
     @Test
     @DisplayName("Addition")
     void add() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("2 + 3"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(5, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("2 + 3;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(5, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Subtraction")
     void sub() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("2 - 3"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(-1, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("2 - 3;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(-1, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Multiplication")
     void mul() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("2 * 3"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(6, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("2 * 3;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(6, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Multiplication by zero")
     void mulByZero() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("2 * 0"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(0, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("2 * 0;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(0, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Division")
     void div() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("10 / 3"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(3, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("10 / 3;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(3, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Precedence")
     void prec() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("2 * 3 - 1 * 5 + 5 / 2 + 5 % 2"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(4, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("2 * 3 - 1 * 5 + 5 / 2 + 5 % 2;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(4, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Parenthesis1")
     void paren1() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("2 * (3 - 1) * 5"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(20, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("2 * (3 - 1) * 5;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(20, visitor.visit(result).get(0));
     }
 
     @Test
     @DisplayName("Parenthesis2")
     void paren2() throws IOException, Exception {
-        Scanner lexer = new Lexer(new StringReader("(2 + 3 * ((3 - 1) + 5)) * 4"));
-        Exp result = (Exp) parser.parse(lexer);
-        assertEquals(92, result.accept(visitor));
+        Scanner lexer = new Lexer(new StringReader("(2 + 3 * ((3 - 1) + 5)) * 4;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(92, visitor.visit(result).get(0));
+    }
+
+    @Test
+    @DisplayName("ST initiation")
+    void STinit() throws IOException, Exception {
+        Scanner lexer = new Lexer(new StringReader("1;"));
+        Program result = (Program) parser.parse(lexer);
+        SymbolTable st = new SymbolTable("one", (Exp) result.list.get(0));
+        assertEquals(st.getVal("one"), (Exp) result.list.get(0));
+    }
+
+    @Test
+    @DisplayName("ST delete last element")
+    void STdelLast() throws IOException, Exception {
+        Scanner lexer = new Lexer(new StringReader("1;"));
+        Program result = (Program) parser.parse(lexer);
+        SymbolTable st = new SymbolTable("one", (Exp) result.list.get(0));
+        st.del("one");
+        assertEquals(st.getVal("one"), null);
+    }
+
+    @Test
+    @DisplayName("ST delete empty")
+    void STdelEmpty() throws IOException, Exception {
+        SymbolTable st = new SymbolTable();
+        st.del("one");
+        assertEquals(st.getVal("one"), null);
+    }
+    
+    @Test
+    @DisplayName("ST add empty")
+    void STaddEmpty() throws IOException, Exception {
+        SymbolTable st = new SymbolTable();
+        Scanner lexer = new Lexer(new StringReader("1;"));
+        Program result = (Program) parser.parse(lexer);
+        st.add("one", (Exp) result.list.get(0));
+        assertEquals(st.getVal("one"), (Exp) result.list.get(0));
+    }
+
+
+    @Test
+    @DisplayName("ST delete duplicate")
+    void STdelDup() throws IOException, Exception {
+        Scanner lexer = new Lexer(new StringReader("1;"));
+        Program result = (Program) parser.parse(lexer);
+        SymbolTable st = new SymbolTable("one", (Exp) result.list.get(0));
+        st.del("one");
+        st.add("one", (Exp) result.list.get(0));
+        assertEquals(st.getVal("one"), (Exp) result.list.get(0));
+    }
+    
+    @Test
+    @DisplayName("Simple Assign")
+    void simpleAssign() throws IOException, Exception {
+        Scanner lexer = new Lexer(new StringReader("a = 1; a;"));
+        Program result = (Program) parser.parse(lexer);
+        assertEquals(1, visitor.visit(result).get(0));
     }
 }

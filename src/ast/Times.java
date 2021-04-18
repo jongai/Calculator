@@ -8,11 +8,6 @@ public class Times extends BinExp {
     }
 
     @Override
-    public Integer getValue() {
-        return left.getValue() * right.getValue();
-    }
-    
-    @Override
     public Integer accept(Visitor visitor) {
         return visitor.visit(this);
     }

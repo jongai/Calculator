@@ -4,12 +4,16 @@
 
 %terminals            INT_LIT;
 %terminals            PLUS, MINUS, TIMES, DIVIDE, MOD;
-%terminals            LPAREN, RPAREN;
+%terminals            LPAREN, RPAREN, SEMI, EQUALS;
+%terminals            ID;
 
 %typeof INT_LIT = "Integer";
 %typeof Exp = "Exp";
+%typeof ID = "String";
+%typeof Program = "Program";
+%typeof Assign = "Assign";
 
-%goal Exp;
+%goal Program;
 
 %left MOD, TIMES, DIVIDE;
 %left PLUS, MINUS;
@@ -21,4 +25,13 @@ Exp     = Exp.e1 PLUS Exp.e2       {: return new Plus(e1, e2); :}
         | Exp.e1 MOD Exp.e2        {: return new Mod(e1, e2); :}
         | INT_LIT.i                {: return new IntLit(i); :}
         | LPAREN Exp.e RPAREN      {: return e; :}
+        | ID.i                     {: return new Identifier(i); :}
+;
+
+Assign  = ID.i EQUALS Exp.e        {: return new Assign(i, e); :}
+;
+
+Program = Program.p Exp.e SEMI     {: p.add(e); return p; :}
+        | Program.p Assign.a SEMI  {: p.add(a); return p; :}
+        |                          {: return new Program(); :}
 ;

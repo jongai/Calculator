@@ -9,4 +9,9 @@ public abstract class BinExp extends Exp {
         this.left = left;
         this.right = right;
     }
+    
+    @Override
+    public boolean hasID(String a) {
+        return left.hasID(a) || right.hasID(a);
+    }
 }

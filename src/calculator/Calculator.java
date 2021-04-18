@@ -14,10 +14,10 @@ public class Calculator
 {
     public static void main(String[] args) throws IOException, Exception
     {
-        Scanner lexer = new Lexer(new StringReader("(1 + 2) * 3 + 2"));
+        Scanner lexer = new Lexer(new StringReader("a = 1; b = 2; a = a + 1; a;"));
         Parser parser = new Parser();
         Visitor visitor = new Visitor();
-        Exp result = (Exp) parser.parse(lexer);
-        System.out.println(result.accept(visitor));
+        Program result = (Program) parser.parse(lexer);
+        System.out.println(visitor.visit(result));
     }
 }
