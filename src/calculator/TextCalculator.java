@@ -1,6 +1,7 @@
 package calculator;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.io.FileReader;
 
 import beaver.Parser.Exception;
@@ -16,7 +17,8 @@ public class TextCalculator {
         Visitor visitor = new Visitor();
         Scanner lexer = new Lexer(new FileReader("calculations.txt"));
         Program result = (Program) parser.parse(lexer);
-        System.out.println(visitor.visit(result));
+        for (BigInteger i : visitor.visit(result))
+            System.out.println("> " + i);
         System.out.println("Successful");
     }
 }

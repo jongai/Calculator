@@ -1,13 +1,15 @@
 package visitor;
 
 import ast.*;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Visitor {
     public SymbolTable symb = new SymbolTable();
 
-    public ArrayList<Integer> visit(Program p) {
-        ArrayList<Integer> out = new ArrayList<Integer>();
+    public ArrayList<BigInteger> visit(Program p) {
+        ArrayList<BigInteger> out = new ArrayList<BigInteger>();
         for (Node n : p.list) {
             if (n instanceof Exp)
                 out.add(n.accept(this));
@@ -17,35 +19,35 @@ public class Visitor {
         return out;
     }
 
-    public Integer visit(Plus e) {
-        return e.left.accept(this) + e.right.accept(this);
+    public BigInteger visit(Plus e) {
+        return e.left.accept(this).add(e.right.accept(this));
     }
 
-    public Integer visit(Minus e) {
-        return e.left.accept(this) - e.right.accept(this);
+    public BigInteger visit(Minus e) {
+        return e.left.accept(this).subtract(e.right.accept(this));
     }
 
-    public Integer visit(Times e) {
-        return e.left.accept(this) * e.right.accept(this);
+    public BigInteger visit(Times e) {
+        return e.left.accept(this).multiply(e.right.accept(this));
     }
 
-    public Integer visit(Divide e) {
-        return e.left.accept(this) / e.right.accept(this);
+    public BigInteger visit(Divide e) {
+        return e.left.accept(this).divide(e.right.accept(this));
     }
 
-    public Integer visit(Mod e) {
-        return e.left.accept(this) % e.right.accept(this);
+    public BigInteger visit(Mod e) {
+        return e.left.accept(this).mod(e.right.accept(this));
     }
     
-    public Integer visit(Expn e) {
-        return (int) Math.pow(e.left.accept(this), e.right.accept(this));
+    public BigInteger visit(Expn e) {
+        return e.left.accept(this).pow(e.right.accept(this).intValue());
     }
 
-    public Integer visit(IntLit e) {
+    public BigInteger visit(IntLit e) {
         return e.accept(this);
     }
 
-    public Integer visit(Identifier i) {
+    public BigInteger visit(Identifier i) {
         return i.accept(this);
     }
 }

@@ -2,6 +2,7 @@ package calculator;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.math.BigInteger;
 
 import beaver.Parser.Exception;
 import beaver.Scanner;
@@ -21,7 +22,7 @@ public class Calculator {
                 break;
             Scanner lexer = new Lexer(new StringReader(input));
             Program result = (Program) parser.parse(lexer);
-            for (Integer i : visitor.visit(result))
+            for (BigInteger i : visitor.visit(result))
                 System.out.println("> " + i);
         }
         scanner.close();

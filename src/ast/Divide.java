@@ -1,5 +1,7 @@
 package ast;
 
+import java.math.BigInteger;
+
 import visitor.Visitor;
 
 public class Divide extends BinExp {
@@ -8,7 +10,7 @@ public class Divide extends BinExp {
     }
 
     @Override
-    public Integer accept(Visitor visitor) {
+    public BigInteger accept(Visitor visitor) {
         return visitor.visit(this);
     }
 }

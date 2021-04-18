@@ -1,6 +1,8 @@
 package ast;
 
 import visitor.Visitor;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Program extends Node {
@@ -16,7 +18,7 @@ public class Program extends Node {
     }
 
     @Override
-    public Integer accept(Visitor visitor) {
+    public BigInteger accept(Visitor visitor) {
         return null;
     }
 }

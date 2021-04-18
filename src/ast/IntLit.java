@@ -1,15 +1,17 @@
 package ast;
+import java.math.BigInteger;
+
 import visitor.*;
 
 public class IntLit extends Exp {
-    public final Integer val;
+    public final BigInteger val;
 
-    public IntLit(Integer val) {
+    public IntLit(BigInteger val) {
         this.val = val;
     }
 
     @Override
-    public Integer accept(Visitor visitor) {
+    public BigInteger accept(Visitor visitor) {
         return val;
     }
 

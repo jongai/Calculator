@@ -1,5 +1,7 @@
 package ast;
 
+import java.math.BigInteger;
+
 import visitor.Visitor;
 
 public class Assign extends Node {
@@ -12,7 +14,7 @@ public class Assign extends Node {
     }
 
     @Override
-    public Integer accept(Visitor visitor) {
+    public BigInteger accept(Visitor visitor) {
         if (right.hasID(left))
             visitor.symb.add(left.intern(), new IntLit(right.accept(visitor)));
         else

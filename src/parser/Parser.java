@@ -1,6 +1,7 @@
 package parser;
 
 import ast.*;
+import java.math.BigInteger;
 import beaver.*;
 import java.util.ArrayList;
 
@@ -77,7 +78,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final Integer i = (Integer) _symbol_i.value;
-					 return new IntLit(i);
+					 return new IntLit(BigInteger.valueOf(i));
 				}
 			},
 			new Action() {	// [8] Exp = LPAREN Exp.e RPAREN

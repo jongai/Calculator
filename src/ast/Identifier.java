@@ -1,5 +1,7 @@
 package ast;
 
+import java.math.BigInteger;
+
 import visitor.Visitor;
 
 public class Identifier extends Exp {
@@ -10,7 +12,7 @@ public class Identifier extends Exp {
     }
 
     @Override
-    public Integer accept(Visitor visitor){
+    public BigInteger accept(Visitor visitor){
         if (visitor.symb.getVal(val) == null) {
             System.out.println("Undefined Variables");
             System.exit(1);
