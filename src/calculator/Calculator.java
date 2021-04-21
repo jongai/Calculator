@@ -9,12 +9,13 @@ import beaver.Scanner;
 import parser.Lexer;
 import parser.Parser;
 import ast.*;
+import visitor.Printer;
 import visitor.Visitor;
 
 public class Calculator {
     public static void main(String[] args) throws IOException, Exception {
         Parser parser = new Parser();
-        Visitor visitor = new Visitor();
+        Visitor visitor = new Printer();
         var scanner = new java.util.Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
@@ -22,8 +23,7 @@ public class Calculator {
                 break;
             Scanner lexer = new Lexer(new StringReader(input));
             Program result = (Program) parser.parse(lexer);
-            for (BigInteger i : visitor.visit(result))
-                System.out.println("> " + i);
+            visitor.visit(result);
         }
         scanner.close();
         System.out.println("Successful");

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.math.BigInteger;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ class CalculatorTest {
     void add() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 + 3;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(5, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(5), visitor.visit(result).get(0));
     }
 
     @Test
@@ -32,7 +33,7 @@ class CalculatorTest {
     void sub() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 - 3;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(-1, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(-1), visitor.visit(result).get(0));
     }
 
     @Test
@@ -40,7 +41,7 @@ class CalculatorTest {
     void mul() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * 3;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(6, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(6), visitor.visit(result).get(0));
     }
 
     @Test
@@ -48,7 +49,7 @@ class CalculatorTest {
     void mulByZero() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * 0;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(0, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(0), visitor.visit(result).get(0));
     }
 
     @Test
@@ -56,7 +57,7 @@ class CalculatorTest {
     void div() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("10 / 3;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(3, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(3), visitor.visit(result).get(0));
     }
 
     @Test
@@ -64,7 +65,7 @@ class CalculatorTest {
     void prec() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * 3 - 1 * 5 + 5 / 2 + 5 % 2;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(4, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(4), visitor.visit(result).get(0));
     }
 
     @Test
@@ -72,7 +73,7 @@ class CalculatorTest {
     void paren1() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("2 * (3 - 1) * 5;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(20, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(20), visitor.visit(result).get(0));
     }
 
     @Test
@@ -80,7 +81,7 @@ class CalculatorTest {
     void paren2() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("(2 + 3 * ((3 - 1) + 5)) * 4;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(92, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(92), visitor.visit(result).get(0));
     }
 
     @Test
@@ -137,6 +138,6 @@ class CalculatorTest {
     void simpleAssign() throws IOException, Exception {
         Scanner lexer = new Lexer(new StringReader("a = 1; a;"));
         Program result = (Program) parser.parse(lexer);
-        assertEquals(1, visitor.visit(result).get(0));
+        assertEquals(BigInteger.valueOf(1), visitor.visit(result).get(0));
     }
 }

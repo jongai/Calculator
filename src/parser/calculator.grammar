@@ -6,13 +6,15 @@
 %terminals            INT_LIT;
 %terminals            PLUS, MINUS, TIMES, DIVIDE, MOD, EXP;
 %terminals            LPAREN, RPAREN, SEMI, EQUALS;
-%terminals            ID;
+%terminals            ID, FORL, PRINT;
 
 %typeof INT_LIT = "Integer";
 %typeof Exp = "Exp";
 %typeof ID = "String";
 %typeof Program = "Program";
 %typeof Assign = "Assign";
+%typeof ForLoop = "For";
+%typeof Print = "Print";
 
 %goal Program;
 
@@ -34,7 +36,15 @@ Exp     = Exp.e1 PLUS Exp.e2       {: return new Plus(e1, e2); :}
 Assign  = ID.i EQUALS Exp.e        {: return new Assign(i, e); :}
 ;
 
+ForLoop = FORL Exp.e SEMI Program.p{: return new For(e, p); :}
+;
+
+Print   = PRINT ID.i               {: return new Print(i); :}
+;
+
 Program = Program.p Exp.e SEMI     {: p.add(e); return p; :}
         | Program.p Assign.a SEMI  {: p.add(a); return p; :}
+        | Program.p ForLoop.f SEMI {: p.add(f); return p; :}
+        | Program.p Print.pr SEMI  {: p.add(pr); return p; :}
         |                          {: return new Program(); :}
 ;

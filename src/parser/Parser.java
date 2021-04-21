@@ -104,7 +104,23 @@ public class Parser extends beaver.Parser {
 					 return new Assign(i, e);
 				}
 			},
-			new Action() {	// [11] Program = Program.p Exp.e SEMI
+			new Action() {	// [11] ForLoop = FORL Exp.e SEMI Program.p
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Exp e = (Exp) _symbol_e.value;
+					final Symbol _symbol_p = _symbols[offset + 4];
+					final Program p = (Program) _symbol_p.value;
+					 return new For(e, p);
+				}
+			},
+			new Action() {	// [12] Print = PRINT ID.i
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_i = _symbols[offset + 2];
+					final String i = (String) _symbol_i.value;
+					 return new Print(i);
+				}
+			},
+			new Action() {	// [13] Program = Program.p Exp.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -113,7 +129,7 @@ public class Parser extends beaver.Parser {
 					 p.add(e); return p;
 				}
 			},
-			new Action() {	// [12] Program = Program.p Assign.a SEMI
+			new Action() {	// [14] Program = Program.p Assign.a SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -122,7 +138,25 @@ public class Parser extends beaver.Parser {
 					 p.add(a); return p;
 				}
 			},
-			new Action() {	// [13] Program = 
+			new Action() {	// [15] Program = Program.p ForLoop.f SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Program p = (Program) _symbol_p.value;
+					final Symbol _symbol_f = _symbols[offset + 2];
+					final For f = (For) _symbol_f.value;
+					 p.add(f); return p;
+				}
+			},
+			new Action() {	// [16] Program = Program.p Print.pr SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Program p = (Program) _symbol_p.value;
+					final Symbol _symbol_pr = _symbols[offset + 2];
+					final Print pr = (Print) _symbol_pr.value;
+					 p.add(pr); return p;
+				}
+			},
+			new Action() {	// [17] Program = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new Program();
 				}

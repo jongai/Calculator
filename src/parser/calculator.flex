@@ -47,6 +47,8 @@ ID             = [a-zA-Z_] [a-zA-Z_0-9]*
     "="                  { return newToken(Terminals.EQUALS); }
     ";"                  { return newToken(Terminals.SEMI); }
     "^"                  { return newToken(Terminals.EXP); }
+    "for"                { return newToken(Terminals.FORL); }
+    "print"              { return newToken(Terminals.PRINT); }
     {ID}                 { return newToken(Terminals.ID, yytext()); }
     {WhiteSpace}+        { /* ignore */ }
 }

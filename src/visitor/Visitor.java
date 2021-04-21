@@ -13,6 +13,10 @@ public class Visitor {
         for (Node n : p.list) {
             if (n instanceof Exp)
                 out.add(n.accept(this));
+            if (n instanceof For)
+                out.addAll(((For) n).acceptAll(this));
+            if (n instanceof Print)
+                ((Print) n).accept(this);
             else
                 n.accept(this);
         }
