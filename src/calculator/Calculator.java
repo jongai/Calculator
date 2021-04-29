@@ -2,8 +2,6 @@ package calculator;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.math.BigInteger;
-
 import beaver.Parser.Exception;
 import beaver.Scanner;
 import parser.Lexer;

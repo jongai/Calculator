@@ -95,7 +95,23 @@ public class Parser extends beaver.Parser {
 					 return new Identifier(i);
 				}
 			},
-			new Action() {	// [10] Assign = ID.i EQUALS Exp.e
+			new Action() {	// [10] Exp = Exp.e1 LT Exp.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final Exp e1 = (Exp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final Exp e2 = (Exp) _symbol_e2.value;
+					 return new LT(e1, e2);
+				}
+			},
+			new Action() {	// [11] Exp = SQRT Exp.e
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Exp e = (Exp) _symbol_e.value;
+					 return new Sqrt(e);
+				}
+			},
+			new Action() {	// [12] Assign = ID.i EQUALS Exp.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final String i = (String) _symbol_i.value;
@@ -104,7 +120,7 @@ public class Parser extends beaver.Parser {
 					 return new Assign(i, e);
 				}
 			},
-			new Action() {	// [11] ForLoop = FORL Exp.e SEMI Program.p
+			new Action() {	// [13] ForLoop = FORL Exp.e SEMI Program.p
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final Exp e = (Exp) _symbol_e.value;
@@ -113,14 +129,30 @@ public class Parser extends beaver.Parser {
 					 return new For(e, p);
 				}
 			},
-			new Action() {	// [12] Print = PRINT ID.i
+			new Action() {	// [14] Print = PRINT ID.i
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 2];
 					final String i = (String) _symbol_i.value;
 					 return new Print(i);
 				}
 			},
-			new Action() {	// [13] Program = Program.p Exp.e SEMI
+			new Action() {	// [15] Run = RUN ID.i
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_i = _symbols[offset + 2];
+					final String i = (String) _symbol_i.value;
+					 return new Run(i);
+				}
+			},
+			new Action() {	// [16] If = IF Exp.e SEMI Program.p
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Exp e = (Exp) _symbol_e.value;
+					final Symbol _symbol_p = _symbols[offset + 4];
+					final Program p = (Program) _symbol_p.value;
+					 return new If(e, p);
+				}
+			},
+			new Action() {	// [17] Program = Program.p Exp.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -129,7 +161,7 @@ public class Parser extends beaver.Parser {
 					 p.add(e); return p;
 				}
 			},
-			new Action() {	// [14] Program = Program.p Assign.a SEMI
+			new Action() {	// [18] Program = Program.p Assign.a SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -138,7 +170,7 @@ public class Parser extends beaver.Parser {
 					 p.add(a); return p;
 				}
 			},
-			new Action() {	// [15] Program = Program.p ForLoop.f SEMI
+			new Action() {	// [19] Program = Program.p ForLoop.f SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -147,7 +179,7 @@ public class Parser extends beaver.Parser {
 					 p.add(f); return p;
 				}
 			},
-			new Action() {	// [16] Program = Program.p Print.pr SEMI
+			new Action() {	// [20] Program = Program.p Print.pr SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_p = _symbols[offset + 1];
 					final Program p = (Program) _symbol_p.value;
@@ -156,7 +188,25 @@ public class Parser extends beaver.Parser {
 					 p.add(pr); return p;
 				}
 			},
-			new Action() {	// [17] Program = 
+			new Action() {	// [21] Program = Program.p Run.r SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Program p = (Program) _symbol_p.value;
+					final Symbol _symbol_r = _symbols[offset + 2];
+					final Run r = (Run) _symbol_r.value;
+					 p.add(r); return p;
+				}
+			},
+			new Action() {	// [22] Program = Program.p If.i SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Program p = (Program) _symbol_p.value;
+					final Symbol _symbol_i = _symbols[offset + 2];
+					final If i = (If) _symbol_i.value;
+					 p.add(i); return p;
+				}
+			},
+			new Action() {	// [23] Program = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new Program();
 				}

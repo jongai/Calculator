@@ -15,7 +15,7 @@ public class TextCalculator {
     public static void main(String[] args) throws IOException, Exception {
         Parser parser = new Parser();
         Visitor visitor = new Printer();
-        Scanner lexer = new Lexer(new FileReader("calculations.txt"));
+        Scanner lexer = new Lexer(new FileReader("p111.txt"));
         Program result = (Program) parser.parse(lexer);
         visitor.visit(result);
         System.out.println("Successful");

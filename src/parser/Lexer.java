@@ -66,10 +66,10 @@ public class Lexer extends Scanner {
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\0\1\1\1\2\22\0\1\1"+
     "\4\0\1\3\2\0\1\4\1\5\1\6\1\7\1\0"+
-    "\1\10\1\0\1\11\1\12\11\13\1\0\1\14\1\0"+
-    "\1\15\3\0\32\16\3\0\1\17\1\16\1\0\5\16"+
-    "\1\20\2\16\1\21\4\16\1\22\1\23\1\24\1\16"+
-    "\1\25\1\16\1\26\6\16\u0185\0";
+    "\1\10\1\0\1\11\1\12\11\13\1\0\1\14\1\15"+
+    "\1\16\3\0\32\17\3\0\1\20\1\17\1\0\5\17"+
+    "\1\21\2\17\1\22\4\17\1\23\1\24\1\25\1\26"+
+    "\1\27\1\30\1\31\1\32\5\17\u0185\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -97,12 +97,13 @@ public class Lexer extends Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11\2\12\1\13\1\14\1\15\1\16\2\15"+
-    "\2\0\1\2\2\15\1\0\1\2\1\17\1\15\1\2"+
-    "\1\15\2\2\1\20\2\0";
+    "\1\10\1\11\2\12\1\13\1\14\1\15\1\16\1\17"+
+    "\5\16\2\0\1\2\1\16\1\20\3\16\1\0\1\2"+
+    "\1\21\1\16\1\22\1\16\1\2\1\16\1\23\2\2"+
+    "\1\24\2\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[34];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -127,14 +128,15 @@ public class Lexer extends Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\27\0\56\0\27\0\27\0\27\0\27\0\27"+
-    "\0\27\0\105\0\27\0\134\0\27\0\27\0\163\0\27"+
-    "\0\212\0\241\0\105\0\270\0\317\0\346\0\375\0\u0114"+
-    "\0\u012b\0\163\0\u0142\0\u0159\0\u0170\0\u0187\0\u019e\0\163"+
-    "\0\u01b5\0\u01cc";
+    "\0\0\0\33\0\66\0\33\0\33\0\33\0\33\0\33"+
+    "\0\33\0\121\0\33\0\154\0\33\0\33\0\33\0\207"+
+    "\0\33\0\242\0\275\0\330\0\363\0\u010e\0\121\0\u0129"+
+    "\0\u0144\0\u015f\0\207\0\u017a\0\u0195\0\u01b0\0\u01cb\0\u01e6"+
+    "\0\207\0\u0201\0\207\0\u021c\0\u0237\0\u0252\0\207\0\u026d"+
+    "\0\u0288\0\207\0\u02a3\0\u02be";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[34];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -159,24 +161,30 @@ public class Lexer extends Scanner {
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\2\3\1\4\1\5\1\6\1\7\1\10\1\11"+
     "\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21"+
-    "\3\17\1\22\2\17\30\0\2\3\6\0\1\23\23\0"+
-    "\1\24\2\0\1\25\27\0\2\14\25\0\2\17\2\0"+
-    "\1\17\1\0\7\17\12\0\2\17\2\0\1\17\1\0"+
-    "\3\17\1\26\3\17\12\0\2\17\2\0\1\17\1\0"+
-    "\5\17\1\27\1\17\6\24\1\30\20\24\2\25\1\3"+
-    "\6\25\1\31\15\25\12\0\2\17\2\0\1\17\1\0"+
-    "\5\17\1\32\1\17\12\0\2\17\2\0\1\17\1\0"+
-    "\1\17\1\33\5\17\6\0\1\30\2\0\1\3\15\0"+
-    "\2\25\1\3\3\25\1\34\2\25\1\31\15\25\12\0"+
-    "\2\17\2\0\1\17\1\0\2\17\1\35\4\17\2\34"+
-    "\1\36\3\34\1\25\2\34\1\37\15\34\12\0\2\17"+
-    "\2\0\1\17\1\0\6\17\1\40\1\24\2\36\3\24"+
-    "\1\30\2\24\1\41\15\24\2\34\1\36\6\34\1\37"+
-    "\15\34\6\24\1\42\2\24\1\34\23\24\1\30\2\24"+
-    "\1\36\15\24";
+    "\1\22\1\23\2\20\1\24\1\20\1\25\1\26\2\20"+
+    "\34\0\2\3\6\0\1\27\27\0\1\30\2\0\1\31"+
+    "\33\0\2\14\31\0\2\20\3\0\1\20\1\0\12\20"+
+    "\12\0\2\20\3\0\1\20\1\0\3\20\1\32\6\20"+
+    "\12\0\2\20\3\0\1\20\1\0\1\33\11\20\12\0"+
+    "\2\20\3\0\1\20\1\0\6\20\1\34\3\20\12\0"+
+    "\2\20\3\0\1\20\1\0\11\20\1\35\12\0\2\20"+
+    "\3\0\1\20\1\0\5\20\1\36\4\20\6\30\1\37"+
+    "\24\30\2\31\1\3\6\31\1\40\21\31\12\0\2\20"+
+    "\3\0\1\20\1\0\6\20\1\41\3\20\12\0\2\20"+
+    "\3\0\1\20\1\0\1\20\1\42\10\20\12\0\2\20"+
+    "\3\0\1\20\1\0\2\20\1\43\7\20\12\0\2\20"+
+    "\3\0\1\20\1\0\6\20\1\44\3\20\6\0\1\37"+
+    "\2\0\1\3\21\0\2\31\1\3\3\31\1\45\2\31"+
+    "\1\40\21\31\12\0\2\20\3\0\1\20\1\0\2\20"+
+    "\1\46\7\20\12\0\2\20\3\0\1\20\1\0\10\20"+
+    "\1\47\1\20\2\45\1\50\3\45\1\31\2\45\1\51"+
+    "\21\45\12\0\2\20\3\0\1\20\1\0\10\20\1\52"+
+    "\1\20\1\30\2\50\3\30\1\37\2\30\1\53\21\30"+
+    "\2\45\1\50\6\45\1\51\21\45\6\30\1\54\2\30"+
+    "\1\45\27\30\1\37\2\30\1\50\21\30";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[483];
+    int [] result = new int[729];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -219,11 +227,11 @@ public class Lexer extends Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\6\11\1\1\1\11\1\1\2\11"+
-    "\1\1\1\11\2\1\2\0\3\1\1\0\10\1\2\0";
+    "\1\0\1\11\1\1\6\11\1\1\1\11\1\1\3\11"+
+    "\1\1\1\11\5\1\2\0\6\1\1\0\13\1\2\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[34];
+    int [] result = new int[44];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -709,82 +717,102 @@ public class Lexer extends Scanner {
             { throw new Scanner.Exception("unexpected character '" + yytext() + "'");
             }
             // fall through
-          case 17: break;
+          case 21: break;
           case 2:
             { /* ignore */
             }
             // fall through
-          case 18: break;
+          case 22: break;
           case 3:
             { return newToken(Terminals.MOD);
             }
             // fall through
-          case 19: break;
+          case 23: break;
           case 4:
             { return newToken(Terminals.LPAREN);
             }
             // fall through
-          case 20: break;
+          case 24: break;
           case 5:
             { return newToken(Terminals.RPAREN);
             }
             // fall through
-          case 21: break;
+          case 25: break;
           case 6:
             { return newToken(Terminals.TIMES);
             }
             // fall through
-          case 22: break;
+          case 26: break;
           case 7:
             { return newToken(Terminals.PLUS);
             }
             // fall through
-          case 23: break;
+          case 27: break;
           case 8:
             { return newToken(Terminals.MINUS);
             }
             // fall through
-          case 24: break;
+          case 28: break;
           case 9:
             { return newToken(Terminals.DIVIDE);
             }
             // fall through
-          case 25: break;
+          case 29: break;
           case 10:
             { return newToken(Terminals.INT_LIT, Integer.valueOf(yytext()));
             }
             // fall through
-          case 26: break;
+          case 30: break;
           case 11:
             { return newToken(Terminals.SEMI);
             }
             // fall through
-          case 27: break;
-          case 12:
-            { return newToken(Terminals.EQUALS);
-            }
-            // fall through
-          case 28: break;
-          case 13:
-            { return newToken(Terminals.ID, yytext());
-            }
-            // fall through
-          case 29: break;
-          case 14:
-            { return newToken(Terminals.EXP);
-            }
-            // fall through
-          case 30: break;
-          case 15:
-            { return newToken(Terminals.FORL);
-            }
-            // fall through
           case 31: break;
-          case 16:
-            { return newToken(Terminals.PRINT);
+          case 12:
+            { return newToken(Terminals.LT);
             }
             // fall through
           case 32: break;
+          case 13:
+            { return newToken(Terminals.EQUALS);
+            }
+            // fall through
+          case 33: break;
+          case 14:
+            { return newToken(Terminals.ID, yytext());
+            }
+            // fall through
+          case 34: break;
+          case 15:
+            { return newToken(Terminals.EXP);
+            }
+            // fall through
+          case 35: break;
+          case 16:
+            { return newToken(Terminals.IF);
+            }
+            // fall through
+          case 36: break;
+          case 17:
+            { return newToken(Terminals.FORL);
+            }
+            // fall through
+          case 37: break;
+          case 18:
+            { return newToken(Terminals.RUN);
+            }
+            // fall through
+          case 38: break;
+          case 19:
+            { return newToken(Terminals.SQRT);
+            }
+            // fall through
+          case 39: break;
+          case 20:
+            { return newToken(Terminals.PRINT);
+            }
+            // fall through
+          case 40: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

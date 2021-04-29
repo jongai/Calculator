@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import ast.Exp;
 import ast.For;
 import ast.Node;
-import ast.Print;
 import ast.Program;
 
 public class Printer extends Visitor {
@@ -17,8 +16,6 @@ public class Printer extends Visitor {
                 System.out.println("> " + n.accept(this));
             if (n instanceof For)
                 ((For) n).acceptAll(this);
-            if (n instanceof Print)
-                ((Print) n).accept(this);
             else
                 n.accept(this);
         }
