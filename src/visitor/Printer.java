@@ -3,10 +3,7 @@ package visitor;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import ast.Exp;
-import ast.For;
-import ast.Node;
-import ast.Program;
+import ast.*;
 
 public class Printer extends Visitor {
     @Override

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import beaver.Parser.Exception;
-import beaver.Scanner;
 import parser.Lexer;
 import parser.Parser;
 import visitor.Visitor;
@@ -21,7 +20,7 @@ public class Run extends Node {
     @Override
     public BigInteger accept(Visitor visitor) {
         Parser parser = new Parser();
-        Scanner lexer = null;
+        Lexer lexer = null;
         try {
             lexer = new Lexer(new FileReader(f + ".txt"));
         } catch (FileNotFoundException e1) {
