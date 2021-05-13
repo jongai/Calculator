@@ -8,6 +8,13 @@ import parser.Parser;
 import ast.*;
 import visitor.Printer;
 
+/**
+ * The calculator that takes command line input and prints out
+ * the result.
+ * 
+ * @author Jonathan Gai
+ *
+ */
 public class Calculator {
     public static void main(String[] args) throws IOException, Exception {
         Parser parser = new Parser();
