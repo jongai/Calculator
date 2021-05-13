@@ -13,8 +13,15 @@ import java.util.ArrayList;
  *
  */
 public class Visitor {
+    /**
+     * 
+     */
     public SymbolTable symb = new SymbolTable();
 
+    /**
+     * @param p
+     * @return
+     */
     public ArrayList<BigInteger> visit(Program p) {
         ArrayList<BigInteger> out = new ArrayList<BigInteger>();
         for (Node n : p.list) {

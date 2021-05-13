@@ -11,24 +11,25 @@ import parser.Parser;
 import visitor.Visitor;
 
 /**
+ * Runs an external file using the language.
  * @author Jonathan Gai
  *
  */
 public class Run extends Node {
     /**
-     * 
+     * The name of the file to be run.
      */
     public String f;
 
     /**
-     * @param f
+     * @param f The name of the file to be run.
      */
     public Run(String f) {
         this.f = f;
     }
 
     /**
-     *
+     * Accepts the visitor.
      */
     @Override
     public BigInteger accept(Visitor visitor) {

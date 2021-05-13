@@ -16,10 +16,24 @@ import parser.Parser;
 import ast.*;
 import visitor.*;
 
+/**
+ * @author Jonathan Gai
+ *
+ */
 class CalculatorTest {
+    /**
+     * 
+     */
     Parser parser = new Parser();
+    /**
+     * 
+     */
     Visitor visitor = new Visitor();
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Addition")
     void add() throws IOException, Exception {
@@ -28,6 +42,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(5), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Subtraction")
     void sub() throws IOException, Exception {
@@ -36,6 +54,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(-1), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Multiplication")
     void mul() throws IOException, Exception {
@@ -44,6 +66,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(6), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Multiplication by zero")
     void mulByZero() throws IOException, Exception {
@@ -52,6 +78,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(0), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Division")
     void div() throws IOException, Exception {
@@ -60,6 +90,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(3), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Precedence")
     void prec() throws IOException, Exception {
@@ -68,6 +102,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(4), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Parenthesis1")
     void paren1() throws IOException, Exception {
@@ -76,6 +114,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(20), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Parenthesis2")
     void paren2() throws IOException, Exception {
@@ -84,6 +126,10 @@ class CalculatorTest {
         assertEquals(BigInteger.valueOf(92), visitor.visit(result).get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("ST initiation")
     void STinit() throws IOException, Exception {
@@ -93,6 +139,10 @@ class CalculatorTest {
         assertEquals(st.getVal("one"), (Exp) result.list.get(0));
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("ST delete last element")
     void STdelLast() throws IOException, Exception {
@@ -103,6 +153,10 @@ class CalculatorTest {
         assertEquals(st.getVal("one"), null);
     }
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("ST delete empty")
     void STdelEmpty() throws IOException, Exception {
@@ -111,6 +165,10 @@ class CalculatorTest {
         assertEquals(st.getVal("one"), null);
     }
     
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("ST add empty")
     void STaddEmpty() throws IOException, Exception {
@@ -122,6 +180,10 @@ class CalculatorTest {
     }
 
 
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("ST delete duplicate")
     void STdelDup() throws IOException, Exception {
@@ -133,6 +195,10 @@ class CalculatorTest {
         assertEquals(st.getVal("one"), (Exp) result.list.get(0));
     }
     
+    /**
+     * @throws IOException
+     * @throws Exception
+     */
     @Test
     @DisplayName("Simple Assign")
     void simpleAssign() throws IOException, Exception {

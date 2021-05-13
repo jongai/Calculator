@@ -2,12 +2,32 @@ package visitor;
 
 import ast.*;
 
+/**
+ * @author Jonathan Gai
+ *
+ */
 public class SymbolTable {
+    /**
+     * 
+     */
     private SymbolTable next;
+    /**
+     * 
+     */
     private SymbolTable prev;
+    /**
+     * 
+     */
     private String key;
+    /**
+     * 
+     */
     private Exp val;
 
+    /**
+     * @param key
+     * @param val
+     */
     public SymbolTable(String key, Exp val) {
         this();
         this.next = new SymbolTable();
@@ -16,9 +36,16 @@ public class SymbolTable {
         this.next.val = val;
     }
 
+    /**
+     * 
+     */
     public SymbolTable() {
     }
 
+    /**
+     * @param key
+     * @return
+     */
     public Exp getVal(String key) {
         SymbolTable temp = this;
         while (temp.key != key.intern()) {
@@ -30,6 +57,9 @@ public class SymbolTable {
         return temp.val;
     }
 
+    /**
+     * @param key
+     */
     public void del(String key) {
         SymbolTable temp = this;
         while (temp.key != key.intern()) {
@@ -41,6 +71,10 @@ public class SymbolTable {
         temp.prev.next = temp.next;
     }
 
+    /**
+     * @param key
+     * @param val
+     */
     public void add(String key, Exp val) {
         SymbolTable temp = new SymbolTable(key, val);
         temp.next.next = this.next;

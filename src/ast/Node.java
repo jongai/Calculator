@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import beaver.Symbol;
 
 /**
+ * Abstract class acting as a node in the abstract syntax tree.
  * @author Jonathan Gai
  *
  */
